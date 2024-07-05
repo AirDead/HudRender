@@ -21,8 +21,6 @@ HudRenderer — это инновационная библиотека на Kotl
 ### Пример простого элемента интерфейса
 
 ```kotlin
-import ru.airdead.hudrenderer.AbstractElement
-
 class CustomElement : AbstractElement() {
     override fun render(drawContext: DrawContext, tickDelta: Float) {
         // Ваш код рендеринга
@@ -33,8 +31,6 @@ class CustomElement : AbstractElement() {
 ### Интеграция в ваш мод
 
 ```kotlin
-import ru.airdead.hudrenderer.HudRenderer
-
 fun main() {
     HudEngine.initialize()
     HudManager.addElement(CustomElement)
