@@ -3,14 +3,10 @@ package ru.airdead.hudrenderer.element
 import net.minecraft.client.MinecraftClient
 import net.minecraft.client.gui.DrawContext
 import net.minecraft.client.option.ChatVisibility
-import ru.airdead.hudrenderer.utility.*
-import ru.airdead.hudrenderer.UIEngine
-import ru.airdead.hudrenderer.UIEngine.clientApi
+import ru.airdead.hudrenderer.HudEngine
+import ru.airdead.hudrenderer.HudEngine.clientApi
 import ru.airdead.hudrenderer.stuff.KostilScreen
-import ru.airdead.hudrenderer.utility.Color
-import ru.airdead.hudrenderer.utility.ElementBuilderDSL
-import ru.airdead.hudrenderer.utility.ScrollContext
-import ru.airdead.hudrenderer.utility.ScrollHandler
+import ru.airdead.hudrenderer.utility.*
 
 typealias DragHandler = (DragContext) -> Unit
 
@@ -63,11 +59,11 @@ class ContextMenu : AbstractElement(), Parent {
         enabled = true
         MinecraftClient.getInstance().execute {
             clientApi.minecraft().apply {
-                setScreen(KostilScreen())
                 options.chatVisibility.value = ChatVisibility.HIDDEN
+                setScreen(KostilScreen())
             }
         }
-        UIEngine.isHudHide = true
+        HudEngine.isHudHide = true
     }
 
     /**
@@ -76,7 +72,7 @@ class ContextMenu : AbstractElement(), Parent {
     fun hide() {
         enabled = false
         clientApi.minecraft().options.chatVisibility.value = ChatVisibility.FULL
-        UIEngine.isHudHide = false
+        HudEngine.isHudHide = false
     }
 
     /**
@@ -84,7 +80,7 @@ class ContextMenu : AbstractElement(), Parent {
      *
      * @param action The handler to be invoked on key press.
      */
-    @ElementBuilderDSL
+    @ElementBuilderDsl
     fun onKeyPressed(action: ButtonHandler) {
         onKeyPressed = action
     }
@@ -94,7 +90,7 @@ class ContextMenu : AbstractElement(), Parent {
      *
      * @param handler The handler to be invoked on scroll.
      */
-    @ElementBuilderDSL
+    @ElementBuilderDsl
     fun onScroll(handler: ScrollHandler) {
         onScroll = handler
     }
@@ -104,7 +100,7 @@ class ContextMenu : AbstractElement(), Parent {
      *
      * @param handler The handler to be invoked on drag.
      */
-    @ElementBuilderDSL
+    @ElementBuilderDsl
     fun onDrag(handler: DragHandler) {
         onDrag = handler
     }

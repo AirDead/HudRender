@@ -1,8 +1,8 @@
 package ru.airdead.hudrenderer
 
+import ClientApi
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback
-import ru.airdead.hudrenderer.stuff.ClientApi
 
 /**
  * Singleton object representing the UI engine.
@@ -35,7 +35,7 @@ object HudEngine {
         isInitialized = true
 
         HudRenderCallback.EVENT.register { drawContext, tickDelta ->
-            UIManager.render(drawContext, tickDelta)
+            HudManager.render(drawContext, tickDelta)
         }
 
         ClientTickEvents.START_CLIENT_TICK.register {
@@ -43,7 +43,7 @@ object HudEngine {
             val (mouseX, mouseY) = mouse.x / 2 to mouse.y / 2
             val isLeftClicked = mouse.wasLeftButtonClicked()
             val isRightClicked = mouse.wasRightButtonClicked()
-            UIManager.update(mouseX, mouseY, isLeftClicked, isRightClicked)
+            HudManager.update(mouseX, mouseY, isLeftClicked, isRightClicked)
         }
     }
 

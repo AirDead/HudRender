@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.Mixin
 import org.spongepowered.asm.mixin.injection.At
 import org.spongepowered.asm.mixin.injection.Inject
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo
-import ru.airdead.hudrenderer.UIEngine
+import ru.airdead.hudrenderer.HudEngine
 
 /**
  * Mixin class for modifying the in-game HUD rendering.
@@ -23,7 +23,7 @@ class InGameHudMixin {
      */
     @Inject(method = ["renderHotbar"], at = [At("HEAD")], cancellable = true)
     fun renderHotbar(tickDelta: Float, context: DrawContext?, ci: CallbackInfo) {
-        if (UIEngine.isHudHide) {
+        if (HudEngine.isHudHide) {
             ci.cancel()
         }
     }

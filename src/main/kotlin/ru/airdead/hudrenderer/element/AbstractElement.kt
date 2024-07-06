@@ -4,7 +4,7 @@ import net.minecraft.client.gui.DrawContext
 import net.minecraft.client.gui.screen.GameMenuScreen
 import net.minecraft.client.gui.screen.ingame.InventoryScreen
 import net.minecraft.util.math.RotationAxis
-import ru.airdead.hudrenderer.UIEngine
+import ru.airdead.hudrenderer.HudEngine
 import ru.airdead.hudrenderer.utility.*
 
 /**
@@ -93,7 +93,7 @@ abstract class AbstractElement : IElement {
      *
      * @param handler The handler to be invoked on hover.
      */
-    @ElementBuilderDSL
+    @ElementBuilderDsl
     fun onHover(handler: HoverHandler) {
         onHover = handler
     }
@@ -103,7 +103,7 @@ abstract class AbstractElement : IElement {
      *
      * @param handler The handler to be invoked on click.
      */
-    @ElementBuilderDSL
+    @ElementBuilderDsl
     fun onClick(handler: ClickHandler) {
         onClick = handler
     }
@@ -259,7 +259,7 @@ abstract class AbstractElement : IElement {
      * @return True if interaction is allowed, false otherwise.
      */
     private fun isInteractionAllowed(): Boolean {
-        val currentScreen = UIEngine.clientApi.minecraft().currentScreen
+        val currentScreen = HudEngine.clientApi.minecraft().currentScreen
         return currentScreen !is GameMenuScreen && currentScreen !is InventoryScreen
     }
 

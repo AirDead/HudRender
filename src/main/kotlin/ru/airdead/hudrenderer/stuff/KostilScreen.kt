@@ -2,9 +2,9 @@ package ru.airdead.hudrenderer.stuff
 
 import net.minecraft.client.gui.screen.Screen
 import net.minecraft.text.Text
-import ru.airdead.hudrenderer.utility.Modifiers
-import ru.airdead.hudrenderer.UIManager
+import ru.airdead.hudrenderer.HudManager
 import ru.airdead.hudrenderer.element.ContextMenu
+import ru.airdead.hudrenderer.utility.Modifiers
 
 /**
  * Custom screen class used to handle context menus.
@@ -18,7 +18,7 @@ class KostilScreen : Screen(Text.empty()) {
      * @param action The action to be performed on each context menu.
      */
     inline fun handleContextMenus(action: (ContextMenu) -> Unit) {
-        UIManager.elements().asSequence()
+        HudManager.elements().asSequence()
             .filter { it is ContextMenu && it.enabled }
             .map { it as ContextMenu }
             .forEach(action)

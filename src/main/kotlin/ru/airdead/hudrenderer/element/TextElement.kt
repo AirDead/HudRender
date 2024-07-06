@@ -3,7 +3,7 @@ package ru.airdead.hudrenderer.element
 import net.minecraft.client.font.TextRenderer
 import net.minecraft.client.gui.DrawContext
 import net.minecraft.text.Text
-import ru.airdead.hudrenderer.UIEngine
+import ru.airdead.hudrenderer.HudEngine
 import ru.airdead.hudrenderer.utility.V3
 
 /**
@@ -57,7 +57,7 @@ class TextElement : AbstractElement() {
      * @return The width of the text.
      */
     private fun calculateTextWidth(text: String): Double {
-        val textRenderer: TextRenderer = UIEngine.clientApi.minecraft().textRenderer
+        val textRenderer: TextRenderer = HudEngine.clientApi.minecraft().textRenderer
         return textRenderer.getWidth(Text.of(text)).toDouble()
     }
 
@@ -70,7 +70,7 @@ class TextElement : AbstractElement() {
     override fun render(drawContext: DrawContext, tickDelta: Float) {
         if (size.x <= 0 || size.y <= 0) return
 
-        val textRenderer: TextRenderer = UIEngine.clientApi.minecraft().textRenderer
+        val textRenderer: TextRenderer = HudEngine.clientApi.minecraft().textRenderer
         val textColor = color
         drawContext.drawText(textRenderer, content, renderLocation.x.toInt(), renderLocation.y.toInt(), textColor.toInt(), shadow)
     }
