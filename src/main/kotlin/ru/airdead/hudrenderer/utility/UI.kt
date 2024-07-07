@@ -1,6 +1,5 @@
 package ru.airdead.hudrenderer.utility
 
-import ru.airdead.hudrenderer.element.BeautifulRectangleElement
 import ru.airdead.hudrenderer.element.ContextMenu
 import ru.airdead.hudrenderer.element.RectangleElement
 import ru.airdead.hudrenderer.element.TextElement
@@ -20,20 +19,6 @@ inline fun rectangle(setup: RectangleElement.() -> Unit): RectangleElement {
         callsInPlace(setup, InvocationKind.EXACTLY_ONCE)
     }
     return RectangleElement().also(setup)
-}
-
-/**
- * Inline function to create and configure a [BeautifulRectangleElement].
- *
- * @param setup The configuration block for the [BeautifulRectangleElement].
- * @return The configured [BeautifulRectangleElement].
- */
-@OptIn(ExperimentalContracts::class)
-inline fun beautifulRectangle(setup: BeautifulRectangleElement.() -> Unit): BeautifulRectangleElement {
-    contract {
-        callsInPlace(setup, InvocationKind.EXACTLY_ONCE)
-    }
-    return BeautifulRectangleElement().also(setup)
 }
 
 /**

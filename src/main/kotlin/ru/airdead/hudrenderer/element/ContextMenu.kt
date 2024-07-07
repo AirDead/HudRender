@@ -59,7 +59,7 @@ class ContextMenu : AbstractElement(), Parent {
         enabled = true
         MinecraftClient.getInstance().execute {
             clientApi.minecraft().apply {
-                options.chatVisibility.value = ChatVisibility.HIDDEN
+                options?.chatVisibility?.value = ChatVisibility.HIDDEN
                 setScreen(KostilScreen())
             }
         }
@@ -71,7 +71,7 @@ class ContextMenu : AbstractElement(), Parent {
      */
     fun hide() {
         enabled = false
-        clientApi.minecraft().options.chatVisibility.value = ChatVisibility.FULL
+        clientApi.minecraft().options?.chatVisibility?.value = ChatVisibility.FULL
         HudEngine.isHudHide = false
     }
 

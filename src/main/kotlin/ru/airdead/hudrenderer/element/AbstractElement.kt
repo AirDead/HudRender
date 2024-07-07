@@ -259,7 +259,7 @@ abstract class AbstractElement : IElement {
      * @return True if interaction is allowed, false otherwise.
      */
     private fun isInteractionAllowed(): Boolean {
-        val currentScreen = HudEngine.clientApi.minecraft().currentScreen
+        val currentScreen = HudEngine.clientApi.minecraft()?.currentScreen
         return currentScreen !is GameMenuScreen && currentScreen !is InventoryScreen
     }
 

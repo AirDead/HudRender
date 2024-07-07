@@ -57,8 +57,8 @@ class TextElement : AbstractElement() {
      * @return The width of the text.
      */
     private fun calculateTextWidth(text: String): Double {
-        val textRenderer: TextRenderer = HudEngine.clientApi.minecraft().textRenderer
-        return textRenderer.getWidth(Text.of(text)).toDouble()
+        val textRenderer: TextRenderer? = HudEngine.clientApi.minecraft().textRenderer
+        return textRenderer?.getWidth(Text.of(text))?.toDouble() ?: 0.0
     }
 
     /**
@@ -70,8 +70,10 @@ class TextElement : AbstractElement() {
     override fun render(drawContext: DrawContext, tickDelta: Float) {
         if (size.x <= 0 || size.y <= 0) return
 
-        val textRenderer: TextRenderer = HudEngine.clientApi.minecraft().textRenderer
-        val textColor = color
-        drawContext.drawText(textRenderer, content, renderLocation.x.toInt(), renderLocation.y.toInt(), textColor.toInt(), shadow)
+        val textRenderer: TextRenderer? = HudEngine.clientApi.minecraft().textRenderer
+        if (textRenderer != null) {
+            val textColor = color
+            drawContext.drawText(textRenderer, content, renderLocation.x.toInt(), renderLocation.y.toInt(), textColor.toInt(), shadow)
+        }
     }
 }
