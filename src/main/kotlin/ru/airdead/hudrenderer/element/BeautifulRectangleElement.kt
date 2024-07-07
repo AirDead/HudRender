@@ -51,6 +51,11 @@ open class BeautifulRectangleElement : AbstractElement(), Parent {
 
         drawRoundedRect(drawContext, x1, y1, width, height, cornerRadius, color.toInt())
 
+        // Draw top line
+        drawContext.fill(x1, y1 - 2, x1 + width, y1, color.toInt())
+        // Draw bottom line
+        drawContext.fill(x1, y1 + height, x1 + width, y1 + height + 2, color.toInt())
+
         texture?.let {
             drawContext.drawTexture(
                 it,
@@ -80,13 +85,18 @@ open class BeautifulRectangleElement : AbstractElement(), Parent {
     private fun drawRoundedRect(drawContext: DrawContext, x: Int, y: Int, width: Int, height: Int, radius: Int, color: Int) {
         val adjustedRadius = radius.coerceAtMost(width / 2).coerceAtMost(height / 2)
 
+        // Fill the main rectangle area
         drawContext.fill(x + adjustedRadius, y + adjustedRadius, x + width - adjustedRadius, y + height - adjustedRadius, color)
 
+        // Fill the top and bottom parts
         drawContext.fill(x + adjustedRadius, y, x + width - adjustedRadius, y + adjustedRadius, color)
         drawContext.fill(x + adjustedRadius, y + height - adjustedRadius, x + width - adjustedRadius, y + height, color)
+
+        // Fill the left and right parts
         drawContext.fill(x, y + adjustedRadius, x + adjustedRadius, y + height - adjustedRadius, color)
         drawContext.fill(x + width - adjustedRadius, y + adjustedRadius, x + width, y + height - adjustedRadius, color)
 
+        // Draw the corners if the radius is greater than 0
         if (adjustedRadius > 0) {
             drawCorner(drawContext, x + adjustedRadius, y + adjustedRadius, adjustedRadius, 0, color)
             drawCorner(drawContext, x + width - adjustedRadius, y + adjustedRadius, adjustedRadius, 90, color)

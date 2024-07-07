@@ -1,18 +1,21 @@
 {
   "schemaVersion": 1,
   "id": "hudrenderer",
-  "version": "${mod_version}",
-  "name": "HUD Renderer",
-  "description": "A custom HUD renderer mod for Minecraft.",
-  "license": "MIT",
+  "version": "${version}",
+  "name": "HudRenderer",
+  "description": "Api for rendering user interface!",
+  "authors": [
+    "Airdead"
+  ],
+  "license": "CC0-1.0",
   "environment": "*",
   "mixins": [
     "hudrenderer.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.15.11",
-    "fabric": "*",
-    "minecraft": "1.20.1",
-    "fabric-kotlin": ">=1.11.0+kotlin.2.0.0"
+    "minecraft": "~1.20.1",
+    "java": ">=17",
+    "fabric-api": "*"
   }
 }

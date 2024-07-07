@@ -1,6 +1,5 @@
 package ru.airdead.hudrenderer.element
 
-import com.mojang.blaze3d.systems.RenderSystem
 import net.minecraft.client.gui.DrawContext
 import net.minecraft.util.Identifier
 import ru.airdead.hudrenderer.utility.V3
