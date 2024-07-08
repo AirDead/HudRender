@@ -48,8 +48,10 @@ open class RectangleElement : AbstractElement(), Parent {
         if (width <= 0 || height <= 0) return
 
         texture?.let {
-            drawContext.drawTexture(it, x1, y1, width, height, 0.0f, 0.0f,
-                regionSize.x.toInt(), regionSize.y.toInt(), textureSize.x.toInt(), textureSize.y.toInt())
+            drawContext.drawTexture(
+                it, x1, y1, width, height, 0.0f, 0.0f,
+                regionSize.x.toInt(), regionSize.y.toInt(), textureSize.x.toInt(), textureSize.y.toInt()
+            )
         } ?: drawContext.fill(x1, y1, x1 + width, y1 + height, color.toInt())
 
         if (mask) {

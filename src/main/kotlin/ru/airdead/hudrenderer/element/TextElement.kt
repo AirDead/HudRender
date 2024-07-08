@@ -28,37 +28,22 @@ class TextElement : AbstractElement() {
     var shadow = false
 
     /**
-     * Indicates whether the text element should automatically fit its content.
-     * When enabled, the size is updated based on the content.
+     * The scale of the text.
      */
-    var autoFit: Boolean = false
+    var scale = 1.0
         set(value) {
             field = value
-            if (value) updateSize()
+            updateSize()
         }
 
     /**
      * Updates the size of the text element based on its content and settings.
      */
     private fun updateSize() {
-        size = if (autoFit) {
-            val parentWidth = lastParent?.size?.x ?: size.x
-            V3(parentWidth, size.y, size.z)
-        } else {
-            val textWidth = calculateTextWidth(content)
-            V3(textWidth, size.y, size.z)
-        }
-    }
-
-    /**
-     * Calculates the width of the text.
-     *
-     * @param text The text whose width is to be calculated.
-     * @return The width of the text.
-     */
-    private fun calculateTextWidth(text: String): Double {
-        val textRenderer: TextRenderer? = HudEngine.clientApi.minecraft().textRenderer
-        return textRenderer?.getWidth(Text.of(text))?.toDouble() ?: 0.0
+        val textRenderer: TextRenderer? = HudEngine.clientApi.minecraft()?.textRenderer
+        val textWidth = (textRenderer?.getWidth(Text.of(content)) ?: 0) * scale
+        val textHeight = (textRenderer?.fontHeight ?: 0) * scale
+        size = V3(textWidth, textHeight, size.z)
     }
 
     /**
@@ -68,12 +53,12 @@ class TextElement : AbstractElement() {
      * @param tickDelta The delta time since the last tick.
      */
     override fun render(drawContext: DrawContext, tickDelta: Float) {
-        if (size.x <= 0 || size.y <= 0) return
-
-        val textRenderer: TextRenderer? = HudEngine.clientApi.minecraft().textRenderer
+        val textRenderer: TextRenderer? = HudEngine.clientApi.minecraft()?.textRenderer
         if (textRenderer != null) {
-            val textColor = color
-            drawContext.drawText(textRenderer, content, renderLocation.x.toInt(), renderLocation.y.toInt(), textColor.toInt(), shadow)
+            drawContext.matrices.push()
+            drawContext.matrices.scale(scale.toFloat(), scale.toFloat(), 1.0f)
+            drawContext.drawText(textRenderer, content, (renderLocation.x / scale).toInt(), (renderLocation.y / scale).toInt(), color.toInt(), shadow)
+            drawContext.matrices.pop()
         }
     }
 }

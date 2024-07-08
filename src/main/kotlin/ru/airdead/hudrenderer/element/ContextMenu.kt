@@ -8,37 +8,21 @@ import ru.airdead.hudrenderer.HudEngine.clientApi
 import ru.airdead.hudrenderer.stuff.KostilScreen
 import ru.airdead.hudrenderer.utility.*
 
-typealias DragHandler = (DragContext) -> Unit
-
 /**
  * Class representing a context menu.
  * Inherits from [AbstractElement] and implements the [Parent] interface.
  */
 class ContextMenu : AbstractElement(), Parent {
 
-    /**
-     * Indicates whether the context menu is enabled.
-     */
     override var enabled = false
-
-    /**
-     * Indicates whether the context menu is interactable.
-     */
     override var interactable = false
-
-    /**
-     * The color of the context menu.
-     */
     override var color = Color(0, 0, 0, 0.8)
-
-    /**
-     * The list of child elements.
-     */
     override val children = mutableListOf<AbstractElement>()
 
     private var onKeyPressed: ButtonHandler? = null
     private var onScroll: ScrollHandler? = null
     private var onDrag: DragHandler? = null
+    private var onClose: CloseHandler? = null
     private var draggingElement: AbstractElement? = null
 
     /**
@@ -58,7 +42,7 @@ class ContextMenu : AbstractElement(), Parent {
     fun show() {
         enabled = true
         MinecraftClient.getInstance().execute {
-            clientApi.minecraft().apply {
+            clientApi.minecraft()?.apply {
                 options?.chatVisibility?.value = ChatVisibility.HIDDEN
                 setScreen(KostilScreen())
             }
@@ -71,8 +55,9 @@ class ContextMenu : AbstractElement(), Parent {
      */
     fun hide() {
         enabled = false
-        clientApi.minecraft().options?.chatVisibility?.value = ChatVisibility.FULL
+        clientApi.minecraft()?.options?.chatVisibility?.value = ChatVisibility.FULL
         HudEngine.isHudHide = false
+        onClose?.invoke()
     }
 
     /**
@@ -83,6 +68,16 @@ class ContextMenu : AbstractElement(), Parent {
     @ElementBuilderDsl
     fun onKeyPressed(action: ButtonHandler) {
         onKeyPressed = action
+    }
+
+    /**
+     * Sets a handler for closing the menu.
+     *
+     * @param action The handler to be invoked on menu close.
+     */
+    @ElementBuilderDsl
+    fun onMenuClose(action: CloseHandler) {
+        onClose = action
     }
 
     /**
@@ -148,19 +143,4 @@ class ContextMenu : AbstractElement(), Parent {
     }
 }
 
-/**
- * Data class representing the context of a drag event.
- *
- * @param element The element being dragged.
- * @param mouseX The x-coordinate of the mouse.
- * @param mouseY The y-coordinate of the mouse.
- * @param dx The change in x-coordinate during the drag.
- * @param dy The change in y-coordinate during the drag.
- */
-data class DragContext(
-    val element: AbstractElement,
-    val mouseX: Double,
-    val mouseY: Double,
-    val dx: Double,
-    val dy: Double
-)
+typealias CloseHandler = () -> Unit

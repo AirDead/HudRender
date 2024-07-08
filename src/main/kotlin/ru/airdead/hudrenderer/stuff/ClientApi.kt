@@ -1,1 +1,1 @@
-package ru.airdead.hudrenderer.stuffimport net.minecraft.client.MinecraftClientclass ClientApi {    fun minecraft(): MinecraftClient = MinecraftClient.getInstance()}
+package ru.airdead.hudrenderer.stuffimport net.minecraft.client.MinecraftClientclass ClientApi {    fun minecraft(): MinecraftClient? = MinecraftClient.getInstance()}

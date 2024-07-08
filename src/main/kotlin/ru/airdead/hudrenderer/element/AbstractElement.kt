@@ -135,21 +135,20 @@ abstract class AbstractElement : IElement {
      * @param drawContext The draw context used for rendering.
      */
     private fun updateRenderLocation(drawContext: DrawContext) {
-        val parentSize = if (lastParent is ContextMenu) {
-            V3(
-                drawContext.scaledWindowWidth.toDouble(),
-                drawContext.scaledWindowHeight.toDouble(),
-                1.0
-            )
-        } else {
-            lastParent?.size ?: V3(
-                drawContext.scaledWindowWidth.toDouble(),
-                drawContext.scaledWindowHeight.toDouble(),
-                1.0
-            )
+        val defaultSize = V3(
+            drawContext.scaledWindowWidth.toDouble(),
+            drawContext.scaledWindowHeight.toDouble(),
+            1.0
+        )
+
+        val parentSize = when (lastParent) {
+            null, is ContextMenu -> defaultSize
+            else -> lastParent?.size ?: defaultSize
         }
+
         renderLocation = calculateRenderLocation(parentSize)
     }
+
 
     /**
      * Calculates the render location of the element based on the parent size.
@@ -219,9 +218,9 @@ abstract class AbstractElement : IElement {
      * @return True if the element is hovered, false otherwise.
      */
     fun isHovered(mouseX: Double, mouseY: Double): Boolean {
-        val xStart = renderLocation.x + offset.x
+        val xStart = renderLocation.x
         val xEnd = xStart + size.x
-        val yStart = renderLocation.y + offset.y
+        val yStart = renderLocation.y
         val yEnd = yStart + size.y
         return mouseX in xStart..xEnd && mouseY in yStart..yEnd
     }
