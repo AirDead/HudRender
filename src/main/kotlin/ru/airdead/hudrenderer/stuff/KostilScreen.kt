@@ -54,6 +54,7 @@ class KostilScreen : Screen(Text.empty()) {
         return super.keyPressed(keyCode, scanCode, modifiers)
     }
 
+
     /**
      * Handles mouse scroll events.
      *

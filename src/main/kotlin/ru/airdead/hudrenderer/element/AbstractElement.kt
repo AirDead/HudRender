@@ -84,7 +84,8 @@ abstract class AbstractElement : IElement {
             }
         }
 
-    private var onClick: ClickHandler? = null
+    private var onLeftClick: ClickHandler? = null
+    private var onRightClick: ClickHandler? = null
     private var onHover: HoverHandler? = null
     private var wasHovered = false
 
@@ -99,13 +100,23 @@ abstract class AbstractElement : IElement {
     }
 
     /**
-     * Sets a handler for click events.
+     * Sets a handler for left click events.
      *
-     * @param handler The handler to be invoked on click.
+     * @param handler The handler to be invoked on left click.
      */
     @ElementBuilderDsl
-    fun onClick(handler: ClickHandler) {
-        onClick = handler
+    fun onLeftClick(handler: ClickHandler) {
+        onLeftClick = handler
+    }
+
+    /**
+     * Sets a handler for right click events.
+     *
+     * @param handler The handler to be invoked on right click.
+     */
+    @ElementBuilderDsl
+    fun onRightClick(handler: ClickHandler) {
+        onRightClick = handler
     }
 
     /**
@@ -149,7 +160,6 @@ abstract class AbstractElement : IElement {
         renderLocation = calculateRenderLocation(parentSize)
     }
 
-
     /**
      * Calculates the render location of the element based on the parent size.
      *
@@ -184,6 +194,22 @@ abstract class AbstractElement : IElement {
         offset: Double
     ): Double {
         return parentSize * align - size * origin + (parentOffset ?: 0.0) + offset
+    }
+
+    /**
+     * Handles mouse click events.
+     *
+     * @param button The mouse button clicked.
+     * @param context The context of the click.
+     */
+    open fun handleMouseClick(button: MouseButton, context: ClickContext) {
+        if (interactable) {
+            when (button) {
+                MouseButton.LEFT -> if (wasHovered) onLeftClick?.invoke(context)
+                MouseButton.RIGHT -> if (wasHovered) onRightClick?.invoke(context)
+                else -> {}
+            }
+        }
     }
 
     /**
@@ -226,18 +252,6 @@ abstract class AbstractElement : IElement {
     }
 
     /**
-     * Handles mouse click events.
-     *
-     * @param button The mouse button clicked.
-     * @param pressed Indicates if the button is pressed.
-     */
-    open fun handleMouseClick(button: MouseButton, pressed: Boolean) {
-        if (interactable && wasHovered) {
-            onClick?.invoke(ClickContext(button, pressed))
-        }
-    }
-
-    /**
      * Handles mouse hover events.
      *
      * @param mouseX The x-coordinate of the mouse.
@@ -269,5 +283,4 @@ abstract class AbstractElement : IElement {
      * @param tickDelta The delta time since the last tick.
      */
     abstract fun render(drawContext: DrawContext, tickDelta: Float)
-
 }
