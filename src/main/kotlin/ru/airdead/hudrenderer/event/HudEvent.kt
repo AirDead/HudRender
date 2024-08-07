@@ -19,5 +19,7 @@ data class MouseHoverMoveEvent(
     override val client: MinecraftClient,
     val mouseX: Double,
     val mouseY: Double,
+    val lastX: Double,
+    val lastY: Double,
     val element: AbstractElement
 ) : HudEvent
