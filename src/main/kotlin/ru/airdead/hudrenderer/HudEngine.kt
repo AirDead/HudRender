@@ -40,7 +40,7 @@ object HudEngine {
                 if (client.currentScreen !is KostilScreen) return@register
                 if (mouseX != previousMouseX || mouseY != previousMouseY) {
                     previousMouseX = mouseX
-                    previousMouseY = mouseY / 2 // Mojang moment, ну гении че сказать. Делить тут надо не обращяйте внимание
+                    previousMouseY = mouseY / 2 // Minecraft incorrectly calculates the location of the mouse, so division is required here
                     clientApi.triggerEvent(MouseMoveEvent(client, mouseX, mouseY / 2, previousMouseX, previousMouseY))
                 }
             }
