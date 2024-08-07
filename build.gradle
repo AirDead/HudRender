@@ -7,7 +7,7 @@ plugins {
 	id "org.jetbrains.dokka" version "1.9.20"
 }
 
-version = project.mod_version
+version = "2.1.6"
 group = project.maven_group
 
 base {
@@ -52,26 +52,22 @@ java {
 }
 
 publishing {
-	repositories {
-		maven {
-			name = "myDomainRepository"
-			url = "http://localhost/private/"
-			credentials {
-				username = "airdead"
-				password = "9dBEWfzwOtDjCN00rTV7cyqUKbpirEOVVQCUlKgLoi8gAwZqY18OYqbefY9FQXZ/"
-			}
-			authentication {
-				basic(BasicAuthentication)
-			}
-			allowInsecureProtocol = true
-		}
-	}
 	publications {
-		maven(MavenPublication) {
-			groupId = "ru.airdead"
-			artifactId = "hudrenderer"
-			version = "1.20.1-2.0.33"
+		create("maven", MavenPublication) {
+			groupId = project.group.toString()
+			artifactId = project.name
+			version = project.version.toString()
+
 			from components.java
+
+			pom {
+				developers {
+					developer {
+						id.set("yourAuthorId")
+						name.set("Your Author Name")
+					}
+				}
+			}
 		}
 	}
 }

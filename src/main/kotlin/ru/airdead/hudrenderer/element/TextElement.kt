@@ -16,7 +16,7 @@ class TextElement : AbstractElement() {
      * The content of the text element.
      * When the content is updated, the size is also updated.
      */
-    var content: String = ""
+    var text: String = ""
         set(value) {
             field = value
             updateSize()
@@ -41,7 +41,7 @@ class TextElement : AbstractElement() {
      */
     private fun updateSize() {
         val textRenderer: TextRenderer? = HudEngine.clientApi.minecraft()?.textRenderer
-        val textWidth = (textRenderer?.getWidth(Text.of(content)) ?: 0) * scale
+        val textWidth = (textRenderer?.getWidth(Text.of(text)) ?: 0) * scale
         val textHeight = (textRenderer?.fontHeight ?: 0) * scale
         size = V3(textWidth, textHeight, size.z)
     }
@@ -57,7 +57,7 @@ class TextElement : AbstractElement() {
         if (textRenderer != null) {
             drawContext.matrices.push()
             drawContext.matrices.scale(scale.toFloat(), scale.toFloat(), 1.0f)
-            drawContext.drawText(textRenderer, content, (renderLocation.x / scale).toInt(), (renderLocation.y / scale).toInt(), color.toInt(), shadow)
+            drawContext.drawText(textRenderer, text, (renderLocation.x / scale).toInt(), (renderLocation.y / scale).toInt(), color.toInt(), shadow)
             drawContext.matrices.pop()
         }
     }

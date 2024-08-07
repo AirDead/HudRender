@@ -87,7 +87,12 @@ abstract class AbstractElement : IElement {
     private var onLeftClick: ClickHandler? = null
     private var onRightClick: ClickHandler? = null
     private var onHover: HoverHandler? = null
-    private var wasHovered = false
+
+    /**
+     * Indicates whether the element was hovered in the last frame.
+     */
+    var wasHovered = false
+        private set
 
     /**
      * Sets a handler for hover events.
@@ -207,7 +212,7 @@ abstract class AbstractElement : IElement {
             when (button) {
                 MouseButton.LEFT -> if (wasHovered) onLeftClick?.invoke(context)
                 MouseButton.RIGHT -> if (wasHovered) onRightClick?.invoke(context)
-                else -> {}
+                else -> return
             }
         }
     }
@@ -261,7 +266,7 @@ abstract class AbstractElement : IElement {
         if (!interactable) return
         val hovered = isHovered(mouseX, mouseY)
         if (hovered != wasHovered) {
-            onHover?.invoke(HoverContext(hovered))
+            onHover?.invoke(HoverContext(hovered, mouseX, mouseY / 2))
             wasHovered = hovered
         }
     }

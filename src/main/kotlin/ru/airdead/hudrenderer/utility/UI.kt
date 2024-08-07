@@ -1,5 +1,6 @@
 package ru.airdead.hudrenderer.utility
 
+import ru.airdead.hudrenderer.element.ColorTextElement
 import ru.airdead.hudrenderer.element.ContextMenu
 import ru.airdead.hudrenderer.element.RectangleElement
 import ru.airdead.hudrenderer.element.TextElement
@@ -47,4 +48,18 @@ inline fun text(setup: TextElement.() -> Unit): TextElement {
         callsInPlace(setup, InvocationKind.EXACTLY_ONCE)
     }
     return TextElement().also(setup)
+}
+
+/**
+ * Inline function to create and configure a [ColorTextElement].
+ *
+ * @param setup The configuration block for the [ColorTextElement].
+ * @return The configured [ColorTextElement].
+ */
+@OptIn(ExperimentalContracts::class)
+inline fun colorText(setup: ColorTextElement.() -> Unit): ColorTextElement {
+    contract {
+        callsInPlace(setup, InvocationKind.EXACTLY_ONCE)
+    }
+    return ColorTextElement().also(setup)
 }

@@ -15,3 +15,5 @@ open class V3(
 open class Rotation(
     val degrees: Float
 )
+
+infix fun Number.x(other: Number): V3 = V3(this.toDouble(), other.toDouble(), 0.0)

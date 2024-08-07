@@ -15,7 +15,6 @@ import ru.airdead.hudrenderer.utility.*
 class ContextMenu : AbstractElement(), Parent {
 
     override var enabled = false
-    override var interactable = false
     override var color = Color(0, 0, 0, 0.8)
     override val children = mutableListOf<AbstractElement>()
 
@@ -24,6 +23,16 @@ class ContextMenu : AbstractElement(), Parent {
     private var onDrag: DragHandler? = null
     private var onClose: CloseHandler? = null
     private var draggingElement: AbstractElement? = null
+
+    /**
+     * The size of the context menu.
+     */
+    override var size = V3(0.0, 0.0, 0.0)
+        get() = V3(
+            MinecraftClient.getInstance().window.scaledWidth.toDouble(),
+            MinecraftClient.getInstance().window.scaledHeight.toDouble(),
+            0.0
+        )
 
     /**
      * Renders the context menu.
