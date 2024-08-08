@@ -7,6 +7,8 @@ import org.spongepowered.asm.mixin.injection.At
 import org.spongepowered.asm.mixin.injection.Inject
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo
 import ru.airdead.hudrenderer.HudEngine
+import ru.airdead.hudrenderer.event.EventManager.triggerEvent
+import ru.airdead.hudrenderer.event.hud.InGameHudRender
 
 /**
  * Mixin class for modifying the in-game HUD rendering.
@@ -26,5 +28,14 @@ class InGameHudMixin {
         if (HudEngine.isHudHide) {
             ci.cancel()
         }
+
+        val client = HudEngine.clientApi.minecraft() ?: return
+        triggerEvent(
+            InGameHudRender(
+                client,
+                context!!,
+                tickDelta
+            )
+        )
     }
 }

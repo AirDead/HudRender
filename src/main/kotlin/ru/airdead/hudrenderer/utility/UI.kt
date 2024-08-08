@@ -1,12 +1,18 @@
 package ru.airdead.hudrenderer.utility
 
-import ru.airdead.hudrenderer.element.ColorTextElement
 import ru.airdead.hudrenderer.element.ContextMenu
-import ru.airdead.hudrenderer.element.RectangleElement
-import ru.airdead.hudrenderer.element.TextElement
+import ru.airdead.hudrenderer.element.rectangle.RectangleElement
+import ru.airdead.hudrenderer.element.text.ColorTextElement
+import ru.airdead.hudrenderer.element.text.TextElement
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
+
+/**
+ * DSL marker for element builders.
+ */
+@DslMarker
+annotation class ElementBuilderDsl
 
 /**
  * Inline function to create and configure a [RectangleElement].

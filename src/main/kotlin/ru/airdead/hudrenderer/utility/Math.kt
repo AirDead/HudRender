@@ -1,19 +1,39 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
 package ru.airdead.hudrenderer.utility
 
-open class V2(
-    val x: Double = 0.0,
-    val y: Double = 0.0
-)
+data class V2(
+    var x: Double = 0.0,
+    var y: Double = 0.0
+) {
+    fun interpolate(other: V2, progress: Double) = V2(
+        x + (other.x - x) * progress,
+        y + (other.y - y) * progress
+    )
+}
 
-open class V3(
-    x: Double = 0.0,
-    y: Double = 0.0,
-    val z: Double = 0.0
-) : V2(x, y)
+data class V3(
+    var x: Double = 0.0,
+    var y: Double = 0.0,
+    var z: Double = 0.0
+) {
+    fun copy() = V3(x, y, z)
 
+    fun interpolate(other: V3, progress: Double) = V3(
+        x + (other.x - x) * progress,
+        y + (other.y - y) * progress,
+        z + (other.z - z) * progress
+    )
+}
 
 open class Rotation(
-    val degrees: Float
-)
+    var degrees: Float
+) {
+    fun copy() = Rotation(degrees)
 
-infix fun Number.x(other: Number): V3 = V3(this.toDouble(), other.toDouble(), 0.0)
+    fun interpolate(other: Rotation, progress: Double) = Rotation(
+        degrees + (other.degrees - degrees) * progress.toFloat()
+    )
+}
+
+inline infix fun Number.x(other: Number): V3 = V3(this.toDouble(), other.toDouble(), 0.0)

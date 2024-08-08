@@ -7,7 +7,7 @@ plugins {
 	id "org.jetbrains.dokka" version "1.9.20"
 }
 
-version = "2.1.7"
+version = "1.1.1"
 group = project.maven_group
 
 base {
@@ -63,8 +63,8 @@ publishing {
 			pom {
 				developers {
 					developer {
-						id.set("yourAuthorId")
-						name.set("Your Author Name")
+						id.set("pivnaa.bochka")
+						name.set("AirDead")
 					}
 				}
 			}
