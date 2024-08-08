@@ -44,7 +44,7 @@ class AnimationChain(private val element: AbstractElement, private val initialAn
         val lastState = animations.last().endState
         updateProperties(element)
         val newEndState = element.copyProperties()
-        val animation = Animation(lastState, newEndState, duration, easing::ease, initialAnimation.applyProperties)
+        val animation = Animation(lastState, newEndState, duration * 20, easing::ease, initialAnimation.applyProperties)
         animations.add(animation)
         return this
     }

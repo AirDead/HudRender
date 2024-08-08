@@ -116,7 +116,7 @@ abstract class AbstractElement : IElement {
         val startState = copyProperties()
         updateProperties()
         val endState = copyProperties()
-        val animation = Animation(startState, endState, duration, easing::ease, ::applyProperties)
+        val animation = Animation(startState, endState, duration * 20, easing::ease, ::applyProperties)
         val chain = AnimationChain(this, animation)
         animations.add(chain)
         return chain
