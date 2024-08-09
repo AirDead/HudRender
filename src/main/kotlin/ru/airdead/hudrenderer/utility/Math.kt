@@ -2,6 +2,8 @@
 
 package ru.airdead.hudrenderer.utility
 
+import kotlin.math.sqrt
+
 data class V2(
     var x: Double = 0.0,
     var y: Double = 0.0
@@ -24,6 +26,15 @@ data class V3(
         y + (other.y - y) * progress,
         z + (other.z - z) * progress
     )
+
+    fun add(other: V3) = V3(x + other.x, y + other.y, z + other.z)
+    fun subtract(other: V3) = V3(x - other.x, y - other.y, z - other.z)
+
+    fun multiply(scalar: Double) = V3(x * scalar, y * scalar, z * scalar)
+
+    fun multiply(other: V3) = V3(x * other.x, y * other.y, z * other.z)
+
+    fun length() = sqrt(x * x + y * y + z * z)
 }
 
 open class Rotation(

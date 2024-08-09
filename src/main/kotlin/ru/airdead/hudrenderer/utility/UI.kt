@@ -1,6 +1,8 @@
 package ru.airdead.hudrenderer.utility
 
+import ru.airdead.hudrenderer.element.AbstractElement
 import ru.airdead.hudrenderer.element.ContextMenu
+import ru.airdead.hudrenderer.element.line.DashedLineElement
 import ru.airdead.hudrenderer.element.rectangle.RectangleElement
 import ru.airdead.hudrenderer.element.text.ColorTextElement
 import ru.airdead.hudrenderer.element.text.TextElement
@@ -68,4 +70,38 @@ inline fun colorText(setup: ColorTextElement.() -> Unit): ColorTextElement {
         callsInPlace(setup, InvocationKind.EXACTLY_ONCE)
     }
     return ColorTextElement().also(setup)
+}
+
+@OptIn(ExperimentalContracts::class)
+inline fun line(setup: DashedLineElementBuilder.() -> Unit): DashedLineElement {
+    contract {
+        callsInPlace(setup, InvocationKind.EXACTLY_ONCE)
+    }
+    return DashedLineElementBuilder().apply(setup).build()
+}
+
+class DashedLineElementBuilder {
+    private val element = DashedLineElement()
+
+    fun start(linkTo: AbstractElement) {
+        element.startElement = linkTo
+    }
+
+    fun start(point: V3) {
+        element.startPoint = point
+        element.startElement = null
+    }
+
+    fun end(linkTo: AbstractElement) {
+        element.endElement = linkTo
+    }
+
+    fun end(point: V3) {
+        element.endPoint = point
+        element.endElement = null
+    }
+
+    fun build(): DashedLineElement {
+        return element
+    }
 }
