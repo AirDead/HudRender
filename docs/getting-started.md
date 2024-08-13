@@ -43,7 +43,7 @@ origin - своего рода "точка крепления" элемента 
 Например чтобы центрировать элемент по обеим осям,
 нужно поставить и `align = Relative.CENTER`, и `origin = Relative.CENTER`
 
-Песочница для настройки offset, align и origin, доступна [здесь](https://delfikpro.github.io/origin).
+Песочница для настройки offset, align и origin, доступна [здесь](https://airdead.ru/).
 
 #### rotation
 
@@ -79,10 +79,6 @@ onRightClick имеет тип `ClickHandler` и принимает состоя
 onHover имеет тип `HoverHandler` и принимает состояние наведения (есть/нет) а так-же координаты курсора.
 
 Оба слушателя вызываются как при наводке/нажатии мыши, так и при отводке/отжатии.
-
-
-
-
 
 ### TextElement
 
@@ -146,3 +142,6 @@ HudManager.addElement(rectangle {
   }
 })
 ```
+
+
+JAVADOC: https://airdead.ru/docs/hudrenderer/javadoc
