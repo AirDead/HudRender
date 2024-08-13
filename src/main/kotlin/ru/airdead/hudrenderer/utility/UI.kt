@@ -1,6 +1,7 @@
 package ru.airdead.hudrenderer.utility
 
 import ru.airdead.hudrenderer.element.ContextMenu
+import ru.airdead.hudrenderer.element.line.DashedLineElement
 import ru.airdead.hudrenderer.element.rectangle.RectangleElement
 import ru.airdead.hudrenderer.element.text.ColorTextElement
 import ru.airdead.hudrenderer.element.text.TextElement
@@ -69,3 +70,12 @@ inline fun colorText(setup: ColorTextElement.() -> Unit): ColorTextElement {
     }
     return ColorTextElement().also(setup)
 }
+
+@OptIn(ExperimentalContracts::class)
+inline fun line(setup: DashedLineElement.() -> Unit): DashedLineElement {
+    contract {
+        callsInPlace(setup, InvocationKind.EXACTLY_ONCE)
+    }
+    return DashedLineElement().apply(setup)
+}
+
