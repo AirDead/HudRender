@@ -17,7 +17,7 @@ class TextInputElement : AbstractElement() {
     /**
      * The current text content of the input field.
      */
-    var text: String = ""
+    var text: String = "20"
         private set
 
     /**
@@ -28,18 +28,12 @@ class TextInputElement : AbstractElement() {
     /**
      * Indicates whether the input field is focused and ready to accept input.
      */
-    var focused: Boolean = false
+    var focused: Boolean = true
 
     /**
      * The color of the text.
      */
     var textColor: Color = Color.WHITE
-
-    /**
-     * The background color of the input field.
-     */
-    var backgroundColor: Color = Color(0, 0, 0, 0.5)
-
 
     /**
      * Handles key press events and updates the text content if the input field is focused.
@@ -69,9 +63,8 @@ class TextInputElement : AbstractElement() {
      */
     override fun render(drawContext: DrawContext, tickDelta: Float) {
         val (x, y) = renderLocation.run { x.toInt() to y.toInt() }
-        val (width, height) = size.run { x.toInt() to y.toInt() }
-
-        drawContext.fill(x, y, x + width, y + height, backgroundColor.toInt())
+        val width = size.x.toInt()
+        val height = size.y.toInt()
 
         val textRenderer = HudEngine.clientApi.minecraft()?.textRenderer ?: return
         val textY = y + (height - textRenderer.fontHeight) / 2
@@ -79,12 +72,13 @@ class TextInputElement : AbstractElement() {
     }
 
     /**
-     * Handles mouse click events to focus the input field when clicked.
-     * Deactivates the input field when clicking outside of it.
+     * Handles mouse click events and focuses the input field if it is clicked.
      */
     override fun handleMouseClick(button: MouseButton, context: ClickContext) {
         super.handleMouseClick(button, context)
-        focused = isHovered(context.mouseX, context.mouseY)
+         if (button == MouseButton.LEFT) {
+             focused = isHovered(context.mouseX, context.mouseY)
+         }
     }
 
     /**

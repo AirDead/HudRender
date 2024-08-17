@@ -120,15 +120,13 @@ class ContextMenu : AbstractElement(), Parent {
     fun handleKeyPressed(keyCode: Int, modifiers: Set<Modifiers>) {
         val context = ButtonContext(keyCode, modifiers)
 
-        // Обрабатываем клавишу для всех дочерних элементов, которые находятся в фокусе
         children.filterIsInstance<TextInputElement>().forEach {
             if (it.focused) {
-                it.handleKeyPress(0.toChar(), keyCode)
-                return // Прекращаем дальнейшую обработку, если нашли активное поле ввода
+                it.handleKeyPress(KeyCodeConverter.keyCodeToChar(keyCode, modifiers) ?: '.', keyCode)
+                return
             }
         }
 
-        // Если ни один элемент не обработал клавишу, вызываем общий обработчик
         onKeyPressed?.invoke(context)
     }
 
