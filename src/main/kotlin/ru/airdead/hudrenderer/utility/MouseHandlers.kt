@@ -5,6 +5,7 @@ import ru.airdead.hudrenderer.element.AbstractElement
 /**
  * Enumeration of mouse buttons.
  */
+@Suppress("unused")
 enum class MouseButton {
     LEFT,
     RIGHT,

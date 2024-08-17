@@ -1,4 +1,4 @@
-@file:Suppress("SpellCheckingInspection", "unused")
+@file:Suppress("SpellCheckingInspection", "unused", "ConstPropertyName", "MemberVisibilityCanBePrivate")
 
 package ru.airdead.hudrenderer.animation
 

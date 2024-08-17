@@ -42,7 +42,7 @@ abstract class AbstractElement : IElement {
     /**
      * The color of the element.
      */
-    open var color = BLACK
+    open var color = Color.BLACK
 
     /**
      * The alignment of the element.

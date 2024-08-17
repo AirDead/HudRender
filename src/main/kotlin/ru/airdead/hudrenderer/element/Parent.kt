@@ -55,7 +55,7 @@ interface Parent : IElement {
      * Adds a child element to the parent using the unary plus operator.
      *
      * @param T The type of the child element.
-     * @param element The child element to be added.
+     *
      * @return The added child element.
      */
     operator fun <T : AbstractElement> T.unaryPlus(): T {
