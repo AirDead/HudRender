@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "id": "hudrenderer",
+  "id": "hudrender",
   "version": "${version}",
-  "name": "HudRenderer",
+  "name": "HudRender",
   "description": "Api for rendering user interface!",
   "authors": [
     "Airdead"
