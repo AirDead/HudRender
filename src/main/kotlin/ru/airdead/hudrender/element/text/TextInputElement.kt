@@ -35,6 +35,12 @@ class TextInputElement : AbstractElement() {
      */
     var textColor: Color = Color.WHITE
 
+
+    init {
+        onLeftClick {
+            focused = isPressed
+        }
+    }
     /**
      * Handles key press events and updates the text content if the input field is focused.
      */
@@ -70,17 +76,6 @@ class TextInputElement : AbstractElement() {
         val textY = y + (height - textRenderer.fontHeight) / 2
         drawContext.drawText(textRenderer, text, x + 5, textY, textColor.toInt(), false)
     }
-
-    /**
-     * Handles mouse click events and focuses the input field if it is clicked.
-     */
-    override fun handleMouseClick(button: MouseButton, context: ClickContext) {
-        super.handleMouseClick(button, context)
-         if (button == MouseButton.LEFT) {
-             focused = isHovered(context.mouseX, context.mouseY)
-         }
-    }
-
     /**
      * Checks if the input field is hovered.
      */

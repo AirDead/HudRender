@@ -47,7 +47,7 @@ typealias ClickHandler = ClickContext.() -> Unit
  * @property mouseX The x coordinate of the mouse.
  * @property mouseY The y coordinate of the mouse.
  */
-data class ClickContext(val pressed: Boolean, val mouseX: Double, val mouseY: Double)
+data class ClickContext(val isPressed: Boolean, val mouseX: Double, val mouseY: Double)
 
 /**
  * Type alias for a handler function that processes hover context.
