@@ -6,7 +6,6 @@ import ru.airdead.hudrender.element.line.DashedLineElement
 import ru.airdead.hudrender.element.rectangle.RectangleElement
 import ru.airdead.hudrender.element.text.ColorTextElement
 import ru.airdead.hudrender.element.text.TextElement
-import ru.airdead.hudrender.element.text.TextInputElement
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
@@ -85,18 +84,4 @@ inline fun line(setup: DashedLineElement.() -> Unit): DashedLineElement {
         callsInPlace(setup, InvocationKind.EXACTLY_ONCE)
     }
     return DashedLineElement().apply(setup)
-}
-
-/**
- * Inline function to create and configure a [TextInputElement].
- *
- * @param setup The configuration block for the [TextInputElement].
- * @return The configured [TextInputElement].
- */
-@OptIn(ExperimentalContracts::class)
-inline fun input(setup: TextInputElement.() -> Unit): TextInputElement {
-    contract {
-        callsInPlace(setup, InvocationKind.EXACTLY_ONCE)
-    }
-    return TextInputElement().apply(setup)
 }

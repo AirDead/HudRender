@@ -5,7 +5,6 @@ import net.minecraft.client.gui.DrawContext
 import net.minecraft.client.option.ChatVisibility
 import ru.airdead.hudrender.HudEngine
 import ru.airdead.hudrender.HudEngine.clientApi
-import ru.airdead.hudrender.element.text.TextInputElement
 import ru.airdead.hudrender.stuff.ContextMenuScreen
 import ru.airdead.hudrender.utility.*
 
