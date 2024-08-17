@@ -9,6 +9,7 @@ import kotlin.math.roundToInt
  * A class representing a dashed line element in the HUD.
  * This element renders a dashed line between two points.
  */
+@Suppress("MemberVisibilityCanBePrivate")
 class DashedLineElement : AbstractElement() {
     /**
      * The speed at which the dashes move.

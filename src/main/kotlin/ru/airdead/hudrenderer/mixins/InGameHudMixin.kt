@@ -13,6 +13,7 @@ import ru.airdead.hudrenderer.event.hud.InGameHudRender
 /**
  * Mixin class for modifying the in-game HUD rendering.
  */
+@Suppress("unused", "SpellCheckingInspection")
 @Mixin(InGameHud::class)
 class InGameHudMixin {
 

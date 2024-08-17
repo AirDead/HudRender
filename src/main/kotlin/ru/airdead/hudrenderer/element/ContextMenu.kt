@@ -5,13 +5,14 @@ import net.minecraft.client.gui.DrawContext
 import net.minecraft.client.option.ChatVisibility
 import ru.airdead.hudrenderer.HudEngine
 import ru.airdead.hudrenderer.HudEngine.clientApi
-import ru.airdead.hudrenderer.stuff.KostilScreen
+import ru.airdead.hudrenderer.stuff.ContextMenuScreen
 import ru.airdead.hudrenderer.utility.*
 
 /**
  * Class representing a context menu.
  * Inherits from [AbstractElement] and implements the [Parent] interface.
  */
+@Suppress("SuspiciousVarProperty")
 class ContextMenu : AbstractElement(), Parent {
 
     override var enabled = false
@@ -53,7 +54,7 @@ class ContextMenu : AbstractElement(), Parent {
         MinecraftClient.getInstance().execute {
             clientApi.minecraft()?.apply {
                 options?.chatVisibility?.value = ChatVisibility.HIDDEN
-                setScreen(KostilScreen())
+                setScreen(ContextMenuScreen())
             }
         }
         HudEngine.isHudHide = true

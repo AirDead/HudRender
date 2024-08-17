@@ -8,6 +8,7 @@ import ru.airdead.hudrenderer.element.Parent
  * Class representing a rectangle element that can contain children and supports masking.
  * Inherits from [BaseRectangleElement] and implements the [Parent] interface.
  */
+@Suppress("MemberVisibilityCanBePrivate")
 class RectangleElement : BaseRectangleElement(), Parent {
 
     /**

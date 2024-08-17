@@ -11,6 +11,7 @@ import ru.airdead.hudrenderer.utility.V3
 /**
  * Base class for text elements, handling common properties and rendering logic.
  */
+@Suppress("MemberVisibilityCanBePrivate")
 abstract class BaseTextElement : AbstractElement() {
 
     /**
