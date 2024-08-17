@@ -28,6 +28,7 @@ object HudEngine {
     @JvmStatic
     fun initialize() {
         ClientTickEvents.START_CLIENT_TICK.register(::onClientTick)
+        print("Test")
     }
 
     /**
