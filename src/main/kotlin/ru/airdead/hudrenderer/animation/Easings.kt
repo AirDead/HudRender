@@ -1,3 +1,5 @@
+@file:Suppress("SpellCheckingInspection")
+
 package ru.airdead.hudrenderer.animation
 
 import kotlin.math.cos
@@ -137,7 +139,7 @@ object Easings {
         if (it == 0.0 || it == 1.0) {
             it
         } else {
-            -2.0.pow(10.0 * it - 10.0) * sin((it * 10.0 - 10.75) * c4)
+            (-2.0).pow(10.0 * it - 10.0) * sin((it * 10.0 - 10.75) * c4)
         }
     }
 

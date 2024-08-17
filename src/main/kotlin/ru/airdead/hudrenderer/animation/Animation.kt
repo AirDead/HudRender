@@ -14,6 +14,7 @@ import kotlin.math.min
  * @property easing A function that defines the easing curve of the animation.
  * @property applyProperties A function that applies the interpolated properties to the target.
  */
+@Suppress("MemberVisibilityCanBePrivate")
 class Animation<T>(
     val startState: T,
     val endState: T,

@@ -1,3 +1,5 @@
+@file:Suppress("MemberVisibilityCanBePrivate")
+
 package ru.airdead.hudrenderer
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents
@@ -7,7 +9,7 @@ import org.lwjgl.glfw.GLFW
 import ru.airdead.hudrenderer.event.EventManager.triggerEvent
 import ru.airdead.hudrenderer.event.hud.MouseMoveEvent
 import ru.airdead.hudrenderer.stuff.ClientApi
-import ru.airdead.hudrenderer.stuff.KostilScreen
+import ru.airdead.hudrenderer.stuff.ContextMenuScreen
 
 /**
  * The `HudEngine` object is responsible for initializing and managing the HUD rendering and client tick events.
@@ -64,7 +66,7 @@ object HudEngine {
         val isRightClicked = isMouseClicked(client, GLFW.GLFW_MOUSE_BUTTON_2)
         HudManager.update(mouseX, mouseY, isLeftClicked, isRightClicked)
 
-        if (client.currentScreen is KostilScreen) {
+        if (client.currentScreen is ContextMenuScreen) {
             handleMouseMoveEvent(client, mouseX, mouseY)
         }
     }

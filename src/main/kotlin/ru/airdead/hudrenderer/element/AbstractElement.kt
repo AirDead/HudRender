@@ -12,7 +12,9 @@ import ru.airdead.hudrenderer.utility.*
  * Abstract base class for HUD elements.
  * Provides common properties and methods for rendering, interaction, and animation.
  */
+@Suppress("MemberVisibilityCanBePrivate")
 abstract class AbstractElement : IElement {
+
     /**
      * Indicates whether the element is enabled.
      * When set to false, the element becomes non-interactable.
