@@ -8,7 +8,7 @@ import ru.airdead.hudrenderer.element.AbstractElement
  * @property element The element to which the animations are applied.
  * @property initialAnimation The initial animation to start the chain.
  */
-@Suppress("MemberVisibilityCanBePrivate")
+@Suppress("MemberVisibilityCanBePrivate", "unused")
 class AnimationChain(private val element: AbstractElement, private val initialAnimation: Animation<ElementProperties>) {
     /**
      * List of animations in the chain.

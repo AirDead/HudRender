@@ -12,7 +12,7 @@ import ru.airdead.hudrenderer.utility.*
  * Class representing a context menu.
  * Inherits from [AbstractElement] and implements the [Parent] interface.
  */
-@Suppress("SuspiciousVarProperty")
+@Suppress("SuspiciousVarProperty", "unused")
 class ContextMenu : AbstractElement(), Parent {
 
     override var enabled = false

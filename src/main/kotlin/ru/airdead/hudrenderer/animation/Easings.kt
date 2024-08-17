@@ -1,4 +1,4 @@
-@file:Suppress("SpellCheckingInspection")
+@file:Suppress("SpellCheckingInspection", "unused")
 
 package ru.airdead.hudrenderer.animation
 
