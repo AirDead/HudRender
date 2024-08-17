@@ -2,6 +2,9 @@
 
 package ru.airdead.hudrender.animation
 
+import ru.airdead.hudrender.utility.Color
+import ru.airdead.hudrender.utility.Rotation
+import ru.airdead.hudrender.utility.V3
 import kotlin.math.min
 
 /**
@@ -29,9 +32,9 @@ class Animation<T>(
         private set
 
     /**
-     * Updates the animation state based on the time delta since the last update.
+     * Updates the animation state based on the tick delta.
      *
-     * @param tickDelta The time delta since the last update in seconds.
+     * @param tickDelta The time delta since the last update.
      * @return `true` if the animation has completed, `false` otherwise.
      */
     fun update(tickDelta: Float): Boolean {
@@ -52,18 +55,30 @@ class Animation<T>(
     }
 
     /**
-     * Interpolates between the start and end states based on the given progress.
+     * Interpolates the properties between the start and end states based on the progress.
      *
-     * @param startState The initial state.
-     * @param endState The final state.
+     * @param startState The initial state of the animation.
+     * @param endState The final state of the animation.
      * @param progress The progress of the animation, ranging from 0.0 to 1.0.
      * @return The interpolated state.
-     * @throws IllegalArgumentException if the property type is unknown.
      */
     private fun interpolateProperties(startState: T, endState: T, progress: Double): T {
-        return when (startState) {
-            is ElementProperties -> startState.interpolate(endState as ElementProperties, progress) as T
-            else -> throw IllegalArgumentException("Unknown property type")
+        return startState.apply {
+            endState!!::class.members.forEach { member ->
+                if (member is kotlin.reflect.KMutableProperty<*>) {
+                    val startValue = member.getter.call(startState)
+                    val endValue = member.getter.call(endState)
+
+                    val interpolatedValue = when (startValue) {
+                        is Color -> startValue.interpolate(endValue as Color, progress)
+                        is V3 -> startValue.interpolate(endValue as V3, progress)
+                        is Rotation -> startValue.interpolate(endValue as Rotation, progress)
+                        else -> endValue
+                    }
+
+                    member.setter.call(this, interpolatedValue)
+                }
+            }
         }
     }
 }

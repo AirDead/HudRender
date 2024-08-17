@@ -9,9 +9,10 @@ import ru.airdead.hudrender.element.AbstractElement
  * @property initialAnimation The initial animation to start the chain.
  */
 @Suppress("MemberVisibilityCanBePrivate", "unused")
-class AnimationChain(private val element: AbstractElement, private val initialAnimation: Animation<ElementProperties>) {
+class AnimationChain(val element: AbstractElement, val initialAnimation: Animation<ElementProperties>) {
+
     /**
-     * List of animations in the chain.
+     * The list of animations in the chain.
      */
     val animations = mutableListOf<Animation<ElementProperties>>().apply { add(initialAnimation) }
 
@@ -22,16 +23,21 @@ class AnimationChain(private val element: AbstractElement, private val initialAn
         private set
 
     /**
-     * Number of times the animation chain should repeat.
+     * The number of times the animation chain should repeat.
      */
     var repeatCount = 0
         private set
 
     /**
-     * Current repeat count of the animation chain.
+     * The current repeat count of the animation chain.
      */
     var currentRepeat = 0
         private set
+
+    /**
+     * Indicates whether the animation chain has been cancelled.
+     */
+    private var isCancelled = false
 
     /**
      * Adds a new animation to the chain with the specified duration and easing.
@@ -51,7 +57,7 @@ class AnimationChain(private val element: AbstractElement, private val initialAn
     }
 
     /**
-     * Adds a new animation to the chain with the specified duration and no property updates.
+     * Adds a new animation to the chain with the specified duration and no easing.
      *
      * @param duration The duration of the animation.
      * @return The updated AnimationChain.
@@ -61,9 +67,9 @@ class AnimationChain(private val element: AbstractElement, private val initialAn
     }
 
     /**
-     * Adds a new animation to the chain with zero duration and no property updates.
+     * Adds a new animation to the chain with zero duration and no easing.
      *
-     * @return The updated AnimationChain.  
+     * @return The updated AnimationChain.
      */
     fun then(): AnimationChain {
         return then(0.0, Easings.NONE) { }
@@ -91,21 +97,29 @@ class AnimationChain(private val element: AbstractElement, private val initialAn
     }
 
     /**
+     * Cancels the current animation chain.
+     */
+    fun cancel() {
+        isCancelled = true
+    }
+
+    /**
      * Updates the current animation in the chain based on the tick delta.
      *
      * @param tickDelta The time delta since the last update.
-     * @return True if all animations are complete, false otherwise.
+     * @return True if all animations are complete or cancelled, false otherwise.
      */
     fun update(tickDelta: Float): Boolean {
-        if (animations.isEmpty()) return true
+        if (isCancelled || animations.isEmpty()) return true
+
         val currentAnimation = animations.first()
         if (currentAnimation.update(tickDelta)) {
             animations.removeAt(0)
-            if (loop || (repeatCount > 0 && currentRepeat < repeatCount)) {
+            if (!isCancelled && (loop || (repeatCount > 0 && currentRepeat < repeatCount))) {
                 animations.add(currentAnimation.reset())
                 if (repeatCount > 0) currentRepeat++
             }
         }
-        return animations.isEmpty()
+        return animations.isEmpty() || isCancelled
     }
 }
