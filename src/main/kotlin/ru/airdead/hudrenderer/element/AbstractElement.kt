@@ -149,7 +149,7 @@ abstract class AbstractElement : IElement {
      * @param offset The offset of the element.
      * @return The absolute position.
      */
-    fun calculateAbsolutePosition(parentSize: Double, size: Double, align: Double, origin: Double, parentOffset: Double?, offset: Double) =
+    open fun calculateAbsolutePosition(parentSize: Double, size: Double, align: Double, origin: Double, parentOffset: Double?, offset: Double) =
         parentSize * align - size * origin + (parentOffset ?: 0.0) + offset
 
     /**
@@ -196,7 +196,7 @@ abstract class AbstractElement : IElement {
      * @param mouseY The Y coordinate of the mouse.
      * @return True if the element is hovered over, false otherwise.
      */
-    fun isHovered(mouseX: Double, mouseY: Double) = mouseX in renderLocation.x..(renderLocation.x + size.x) &&
+    open fun isHovered(mouseX: Double, mouseY: Double) = mouseX in renderLocation.x..(renderLocation.x + size.x) &&
             mouseY in renderLocation.y..(renderLocation.y + size.y)
 
     /**
@@ -234,7 +234,7 @@ abstract class AbstractElement : IElement {
      * Updates the animations of the element.
      * @param tickDelta The delta time since the last tick.
      */
-    fun updateAnimations(tickDelta: Float) {
+    open fun updateAnimations(tickDelta: Float) {
         animations.removeIf { it.update(tickDelta) }
     }
 
@@ -242,7 +242,7 @@ abstract class AbstractElement : IElement {
      * Checks if interaction is allowed in the current context.
      * @return True if interaction is allowed, false otherwise.
      */
-    fun isInteractionAllowed() = HudEngine.clientApi.minecraft()?.currentScreen !is GameMenuScreen &&
+    open fun isInteractionAllowed() = HudEngine.clientApi.minecraft()?.currentScreen !is GameMenuScreen &&
             HudEngine.clientApi.minecraft()?.currentScreen !is InventoryScreen
 
     /**
