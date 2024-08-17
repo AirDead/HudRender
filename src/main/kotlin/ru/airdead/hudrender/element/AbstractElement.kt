@@ -45,11 +45,6 @@ abstract class AbstractElement : IElement {
     open var color = Color.BLACK
 
     /**
-     * The stroke color of the element.
-     */
-    open var strokeColor = Color.TRANSPARENT
-
-    /**
      * The alignment of the element.
      */
     var align = V3(0.0, 0.0)
