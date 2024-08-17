@@ -10,6 +10,7 @@ import ru.airdead.hudrender.utility.V3
  *
  * @property size The size of the element.
  * @property color The color of the element.
+ * @property strokeColor The stroke color of the element.
  * @property align The alignment of the element.
  * @property origin The origin point of the element.
  * @property offset The offset of the element.
@@ -18,6 +19,7 @@ import ru.airdead.hudrender.utility.V3
 data class ElementProperties(
     var size: V3,
     var color: Color,
+    var strokeColor: Color,
     var align: V3,
     var origin: V3,
     var offset: V3,
@@ -33,8 +35,9 @@ data class ElementProperties(
     fun interpolate(other: ElementProperties, progress: Double) = ElementProperties(
         size.interpolate(other.size, progress),
         color.interpolate(other.color, progress),
-        align,
-        origin,
+        strokeColor.interpolate(other.strokeColor, progress),
+        align.interpolate(other.align, progress),
+        origin.interpolate(other.origin, progress),
         offset.interpolate(other.offset, progress),
         rotation.interpolate(other.rotation, progress)
     )
@@ -46,7 +49,15 @@ data class ElementProperties(
  * @receiver The AbstractElement to copy properties from.
  * @return A new ElementProperties instance with copied values.
  */
-fun AbstractElement.copyProperties() = ElementProperties(size.copy(), color.copy(), align.copy(), origin.copy(), offset.copy(), rotation.copy())
+fun AbstractElement.copyProperties() = ElementProperties(
+    size.copy(),
+    color.copy(),
+    strokeColor.copy(),
+    align.copy(),
+    origin.copy(),
+    offset.copy(),
+    rotation.copy()
+)
 
 /**
  * Extension function to apply properties to an AbstractElement.
@@ -57,6 +68,7 @@ fun AbstractElement.copyProperties() = ElementProperties(size.copy(), color.copy
 fun AbstractElement.applyProperties(properties: ElementProperties) {
     size = properties.size
     color = properties.color
+    strokeColor = properties.strokeColor
     align = properties.align
     origin = properties.origin
     offset = properties.offset
