@@ -31,8 +31,7 @@ abstract class AbstractElement : IElement {
     /**
      * The render location of the element.
      */
-    var renderLocation = V3(0.0, 0.0, 0.0)
-        private set
+    open var renderLocation = V3(0.0, 0.0, 0.0)
 
     /**
      * The size of the element.
@@ -47,22 +46,22 @@ abstract class AbstractElement : IElement {
     /**
      * The alignment of the element.
      */
-    var align = V3(0.0, 0.0)
+    open var align = V3(0.0, 0.0)
 
     /**
      * The origin point of the element.
      */
-    var origin = V3(0.0, 0.0)
+    open var origin = V3(0.0, 0.0)
 
     /**
      * The offset of the element.
      */
-    var offset = V3(0.0, 0.0)
+    open var offset = V3(0.0, 0.0)
 
     /**
      * The rotation of the element.
      */
-    var rotation = Rotation(0.0f)
+    open var rotation = Rotation(0.0f)
 
     /**
      * Indicates whether the element is interactable.

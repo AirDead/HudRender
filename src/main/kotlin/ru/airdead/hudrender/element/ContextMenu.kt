@@ -119,13 +119,6 @@ class ContextMenu : AbstractElement(), Parent {
     fun handleKeyPressed(keyCode: Int, modifiers: Set<Modifiers>) {
         val context = ButtonContext(keyCode, modifiers)
 
-        children.filterIsInstance<TextInputElement>().forEach {
-            if (it.focused) {
-                it.handleKeyPress(KeyCodeConverter.keyCodeToChar(keyCode, modifiers) ?: '.', keyCode)
-                return
-            }
-        }
-
         onKeyPressed?.invoke(context)
     }
 
@@ -133,14 +126,6 @@ class ContextMenu : AbstractElement(), Parent {
      * Handles mouse click events to focus on the appropriate element.
      */
     override fun handleMouseClick(button: MouseButton, context: ClickContext) {
-        children.forEach { child ->
-            if (child is TextInputElement && child.isHovered(context.mouseX, context.mouseY)) {
-                child.focused = true
-            } else if (child is TextInputElement) {
-                child.focused = false
-            }
-        }
-
         val focusedElement = children.find { it.isHovered(context.mouseX, context.mouseY) }
         focusedElement?.handleMouseClick(button, context)
     }
